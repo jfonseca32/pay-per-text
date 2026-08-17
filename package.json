@@ -1,0 +1,27 @@
+{
+  "name": "pay-per-text",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@11.22.0",
+  "engines": {
+    "node": ">=24.18.0 <25",
+    "pnpm": ">=11.22.0 <12"
+  },
+  "scripts": {
+    "check": "pnpm format:check && pnpm lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "hooks:install": "prek install --hook-type pre-commit --hook-type pre-push",
+    "lint": "eslint . --max-warnings=0"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.8.1",
+    "globals": "17.11.0",
+    "prettier": "3.9.6",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.67.0"
+  }
+}
