@@ -55,7 +55,7 @@ types = ["html"]
 
 [[repos.hooks]]
 id = "typecheck"
-name = "Strict JavaScript type check"
+name = "JavaScript type check"
 entry = "pnpm typecheck"
 language = "system"
 always_run = true
