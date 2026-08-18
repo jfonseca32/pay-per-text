@@ -1,0 +1,43 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "deny",
+    "pedantic": "deny",
+    "perf": "deny",
+    "suspicious": "deny"
+  },
+  "plugins": [
+    "eslint",
+    "import",
+    "jsdoc",
+    "jsx-a11y",
+    "node",
+    "oxc",
+    "promise",
+    "react",
+    "unicorn"
+  ],
+  "ignorePatterns": ["**/coverage/**", "**/dist/**", "**/node_modules/**"],
+  "options": {
+    "denyWarnings": true,
+    "reportUnusedDisableDirectives": "deny"
+  },
+  "rules": {
+    "import/no-unassigned-import": ["deny", { "allow": ["dotenv/config", "**/*.css"] }],
+    "react/react-in-jsx-scope": "allow"
+  },
+  "overrides": [
+    {
+      "files": ["apps/backend/**/*.js"],
+      "env": { "node": true }
+    },
+    {
+      "files": ["apps/frontend/src/**/*.{js,jsx}"],
+      "env": { "browser": true }
+    },
+    {
+      "files": ["**/*.config.{js,mjs,cjs}", "eslint.config.mjs"],
+      "env": { "node": true }
+    }
+  ]
+}
