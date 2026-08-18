@@ -1,12 +1,12 @@
 import eslint from "@eslint/js";
-import { defineConfig } from "eslint/config";
+import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import security from "eslint-plugin-security";
 import sonarjs from "eslint-plugin-sonarjs";
 
 export default defineConfig([
+  globalIgnores(["**/coverage/**", "**/dist/**", "**/node_modules/**"]),
   {
-    ignores: ["**/coverage/**", "**/dist/**", "**/node_modules/**"],
     linterOptions: {
       reportUnusedDisableDirectives: "error",
       reportUnusedInlineConfigs: "error",
