@@ -1,36 +1,48 @@
 import eslint from "@eslint/js";
+import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
-import tseslint from "typescript-eslint";
+import security from "eslint-plugin-security";
+import sonarjs from "eslint-plugin-sonarjs";
 
-export default tseslint.config(
+export default defineConfig([
+  globalIgnores(["**/coverage/**", "**/dist/**", "**/node_modules/**"]),
   {
-    ignores: ["**/coverage/**", "**/dist/**", "**/node_modules/**"],
+    linterOptions: {
+      reportUnusedDisableDirectives: "error",
+      reportUnusedInlineConfigs: "error",
+    },
   },
-  eslint.configs.recommended,
-  ...tseslint.configs.strictTypeChecked,
-  ...tseslint.configs.stylisticTypeChecked,
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ["**/*.{js,jsx,mjs,cjs}"],
+    extends: [
+      eslint.configs.recommended,
+      security.configs.recommended,
+      sonarjs.configs.recommended,
+    ],
     languageOptions: {
-      globals: {
-        ...globals.es2025,
-      },
-      parserOptions: {
-        projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
-    },
-    rules: {
-      "@typescript-eslint/consistent-type-imports": ["error", { prefer: "type-imports" }],
-      "@typescript-eslint/no-confusing-void-expression": ["error", { ignoreArrowShorthand: true }],
-      "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      ecmaVersion: "latest",
+      sourceType: "module",
     },
   },
   {
-    files: ["**/*.config.{js,mjs,ts}", "eslint.config.mjs"],
-    extends: [tseslint.configs.disableTypeChecked],
+    files: ["apps/backend/**/*.js"],
     languageOptions: {
       globals: globals.node,
     },
   },
-);
+  {
+    files: ["apps/frontend/src/**/*.{js,jsx}"],
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+    },
+  },
+  {
+    files: ["**/*.config.{js,mjs,cjs}", "eslint.config.mjs"],
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+]);

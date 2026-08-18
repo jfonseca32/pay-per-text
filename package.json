@@ -10,18 +10,34 @@
     "pnpm": ">=11.22.0 <12"
   },
   "scripts": {
-    "check": "pnpm format:check && pnpm lint",
+    "check": "pnpm format:check && pnpm typecheck && pnpm lint && pnpm lint:css && pnpm lint:html && pnpm build",
+    "build": "pnpm --filter frontend build",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "hooks:install": "prek install --hook-type pre-commit --hook-type pre-push",
-    "lint": "eslint . --max-warnings=0"
+    "lint": "pnpm lint:oxlint && pnpm lint:eslint",
+    "lint:css": "stylelint \"**/*.css\"",
+    "lint:eslint": "eslint . --max-warnings=0",
+    "lint:html": "html-validate \"**/*.html\"",
+    "lint:oxlint": "oxlint .",
+    "typecheck": "tsc -p apps/backend/jsconfig.json && tsc -p apps/frontend/jsconfig.json && tsc -p apps/frontend/jsconfig.node.json"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",
+    "@types/babel__core": "7.20.5",
+    "@types/babel__traverse": "7.28.0",
+    "@types/cors": "2.8.19",
+    "@types/express": "5.0.6",
+    "@types/node": "26.2.0",
     "eslint": "10.8.1",
+    "eslint-plugin-security": "4.0.1",
+    "eslint-plugin-sonarjs": "4.2.0",
     "globals": "17.11.0",
+    "html-validate": "11.8.0",
+    "oxlint": "1.78.0",
     "prettier": "3.9.6",
-    "typescript": "6.0.3",
-    "typescript-eslint": "8.67.0"
+    "stylelint": "17.14.1",
+    "stylelint-config-standard": "40.0.0",
+    "typescript": "6.0.3"
   }
 }
