@@ -24,7 +24,8 @@
   },
   "rules": {
     "import/no-unassigned-import": ["deny", { "allow": ["dotenv/config", "**/*.css"] }],
-    "react/react-in-jsx-scope": "allow"
+    "react/react-in-jsx-scope": "allow",
+    "no-inline-comments": "allow"
   },
   "overrides": [
     {
